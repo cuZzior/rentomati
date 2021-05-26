@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rentomati
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rentomati
+  template:
+    metadata:
+      labels:
+        app: rentomati
+    spec:
+      containers:
+      - name: rentomati
+        image: gcr.io/artful-athlete-274110/rentomati:latest

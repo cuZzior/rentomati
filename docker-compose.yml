@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  rentomati:
+    image: rentomati:latest
+    restart: unless-stopped
+    command:
+      - -Dconfig.resource=application.conf
+      - -Dlogback.debug=true
+      - -Dhttp.port=9000
+    ports:
+      - 9000:9000

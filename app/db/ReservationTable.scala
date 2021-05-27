@@ -10,6 +10,7 @@ class ReservationTable(tag: Tag) extends Table[Reservation](tag, Option("rentoma
   def userId: Rep[Long] = column[Long]("user_id")
   def itemId: Rep[Long] = column[Long]("item_id")
   def startDate: Rep[Instant] = column[Instant]("start_date")
+  def endDate: Rep[Instant] = column[Instant]("end_date")
   def user =
     foreignKey(
       "fk_reservation_user",
@@ -29,5 +30,5 @@ class ReservationTable(tag: Tag) extends Table[Reservation](tag, Option("rentoma
       onDelete = ForeignKeyAction.Cascade
     )
 
-  override def * = (id, userId, itemId, startDate) <> ((Reservation.slickApply _).tupled, Reservation.slickUnapply)
+  override def * = (id, userId, itemId, startDate, endDate) <> ((Reservation.slickApply _).tupled, Reservation.slickUnapply)
 }

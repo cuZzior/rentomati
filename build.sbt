@@ -14,6 +14,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0"
 )
 libraryDependencies += "com.h2database" % "h2" % "1.4.200"
+libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.20"
 Docker / daemonUser := "daemon"
 Docker / packageName := sys.env.getOrElse("IMAGE_NAME", packageName.value)
 Docker / version := sys.env.getOrElse("IMAGE_VERSION", version.value)

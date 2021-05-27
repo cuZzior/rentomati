@@ -1,11 +1,10 @@
 package services
 
 import model.{Item, Reservation, User}
+
 import java.time.Instant
 import java.time.temporal.ChronoUnit
-
 import javax.inject.{Inject, Singleton}
-
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -17,7 +16,7 @@ class InitialDataService @Inject() (
 )(implicit val executionContext: ExecutionContext) {
 
   private val startDate = Instant.now()
-  private val endDate = startDate.plus(14 , ChronoUnit.DAYS)
+  private val endDate = startDate.plus(14, ChronoUnit.DAYS)
 
   private def createInitialItems: Seq[Item] = {
     Seq(
@@ -42,20 +41,20 @@ class InitialDataService @Inject() (
 
   private def createInitialReservations: Seq[Reservation] = {
     Seq(
-      Reservation(1, 1, 6, startDate, endDate),
-      Reservation(2, 1, 2, startDate, endDate),
-      Reservation(3, 2, 8, startDate, endDate),
-      Reservation(4, 2, 1, startDate, endDate),
-      Reservation(5, 3, 5, startDate, endDate)
+      Reservation(Some(1), 1, 6, startDate, endDate),
+      Reservation(Some(2), 1, 2, startDate, endDate),
+      Reservation(Some(3), 2, 8, startDate, endDate),
+      Reservation(Some(4), 2, 1, startDate, endDate),
+      Reservation(Some(5), 3, 5, startDate, endDate)
     )
   }
 
   private def createInitialReservationHistory: Seq[Reservation] = {
     Seq(
-      Reservation(6, 1, 8, startDate, endDate),
-      Reservation(7, 1, 1, startDate, endDate),
-      Reservation(8, 2, 5, startDate, endDate),
-      Reservation(9, 2, 6, startDate, endDate)
+      Reservation(Some(6), 1, 8, startDate, endDate),
+      Reservation(Some(7), 1, 1, startDate, endDate),
+      Reservation(Some(8), 2, 5, startDate, endDate),
+      Reservation(Some(9), 2, 6, startDate, endDate)
     )
   }
 

@@ -1,11 +1,14 @@
 package ui.controllers
 
+import model.Reservation
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 import services.{ReservationHistoryRepository, ReservationRepository}
 import ui.ItemService
-import javax.inject.{Inject, Singleton}
+import ui.dto.ReserveDto
 
+import java.time.{Instant, Period}
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
 
 @Singleton
@@ -75,15 +78,32 @@ class MainController @Inject() (
 
   def cancelReservation(itemId: Long): Action[AnyContent] = {
     Action.async { implicit request =>
-      reservationRepository.findByItemId(itemId)
+      reservationRepository
+        .findByItemId(itemId)
         .map {
           case Some(reservation) =>
-            reservationHistoryRepository.save(reservation)
+            reservationHistoryRepository
+              .save(reservation)
               .map(archivedReservation => reservationRepository.delete(archivedReservation))
             Ok(Json.toJson(s"Successfully canceled reservation for item: $itemId"))
           case None =>
             NotFound(Json.toJson(s"Cannot find active reservation for item: $itemId"))
         }
+    }
+  }
+
+  def reserve: Action[AnyContent] = {
+    Action.async { implicit request =>
+      import ui.dto.ReserveDtoJson._
+      val reserveDto = request.body.asJson.get.as[ReserveDto]
+
+      val reservationStartDate = Instant.now()
+      val reservationEndDate = reservationStartDate.plus(Period.ofWeeks(2))
+      val reservation =
+        Reservation(None, reserveDto.userId, reserveDto.itemId, reservationStartDate, reservationEndDate)
+      reservationRepository
+        .update(reservation)
+        .map(_ => Ok)
     }
   }
 }

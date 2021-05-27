@@ -15,7 +15,10 @@ export interface Item {
     rentedBy?: User;
 }
 
-export interface Reservation extends Item {
+export interface Reservation {
+    id: number;
+    userId: number;
+    itemId: number;
     startDate: string;
     endDate: string;
 }

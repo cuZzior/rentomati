@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import shop from './shop.svg';
 
@@ -14,14 +13,6 @@ const Header = () => {
                 <div className={styles.logoBg2} />
                 <img src={shop} width={30} />
                 Rent-o-mati!
-            </div>
-            <div className={styles.menu}>
-                <Link to="/items" className={styles.link}>
-                    Available items
-                </Link>
-                <Link to="/reservations" className={styles.link}>
-                    My reservations
-                </Link>
             </div>
         </div>
     );

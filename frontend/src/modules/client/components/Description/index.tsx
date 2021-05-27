@@ -1,18 +1,22 @@
 import React from 'react';
 
 import { Item, Reservation } from '../../types';
+import { CURRENT_USER_ID } from '../../consts';
 
 import StatusIndicator from '../StatusIndicator';
+import ReadableDate from '../ReadableDate';
 
 import styles from './styles.module.css';
 
 
 interface Props {
-    item: Item | Reservation
+    item: Item;
     showStatus?: boolean;
+    currentReservation?: Reservation;
 }
 
-const Description = ({item, showStatus = true}: Props) => {
+const Description = ({item, showStatus = true, currentReservation}: Props) => {
+
     return (
         <div className={styles.wrapper}>
 
@@ -22,14 +26,11 @@ const Description = ({item, showStatus = true}: Props) => {
 
             {showStatus && (
                 <div className={styles.row}>
-                    <div className={styles.label}>
-                        status:
-                    </div>
-                    <StatusIndicator status={item.status} />
+                    <StatusIndicator status={item.status} userId={item.rentedBy?.id} />
                 </div>
             )}
 
-            {item.rentedBy && (
+            {item.rentedBy && item.rentedBy.id !== CURRENT_USER_ID && (
                 <div className={styles.row}>
                     <div className={styles.label}>
                         rented by:
@@ -38,7 +39,11 @@ const Description = ({item, showStatus = true}: Props) => {
                 </div>
             )}
 
-
+            {currentReservation && (
+                <div className={styles.row}>
+                    <ReadableDate dateString={currentReservation.startDate} /> &nbsp;-&nbsp; <ReadableDate dateString={currentReservation.endDate} />
+                </div>
+            )}
 
         </div>
     );

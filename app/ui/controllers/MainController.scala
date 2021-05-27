@@ -47,7 +47,7 @@ class MainController @Inject() (
       import model.ReservationJson._
       reservationRepository
         .findByUserId(userId)
-        .map(activeReservationOption => Ok(Json.toJson(activeReservationOption)))
+        .map(seq => Ok(Json.toJson(seq)))
     }
   }
 

@@ -37,19 +37,37 @@ class MainController @Inject() (
     }
   }
 
-  def getReservationsByUserId(userId: Long): Action[AnyContent] = {
+  def getReservationByUserId(userId: Long): Action[AnyContent] = {
     Action.async { implicit request =>
       import model.ReservationJson._
       reservationRepository
+        .findByUserId(userId)
+        .map(activeReservationOption => Ok(Json.toJson(activeReservationOption)))
+    }
+  }
+
+  def getReservationByItemId(itemId: Long): Action[AnyContent] = {
+    Action.async { implicit request =>
+      import model.ReservationJson._
+      reservationRepository
+        .findByItemId(itemId)
+        .map(activeReservationOption => Ok(Json.toJson(activeReservationOption)))
+    }
+  }
+
+  def getHistoricalReservationsByUserId(userId: Long): Action[AnyContent] = {
+    Action.async { implicit request =>
+      import model.ReservationJson._
+      reservationHistoryRepository
         .findByUserId(userId)
         .map(seq => Ok(Json.toJson(seq)))
     }
   }
 
-  def getReservationsByItemId(itemId: Long): Action[AnyContent] = {
+  def getHistoricalReservationsByItemId(itemId: Long): Action[AnyContent] = {
     Action.async { implicit request =>
       import model.ReservationJson._
-      reservationRepository
+      reservationHistoryRepository
         .findByItemId(itemId)
         .map(seq => Ok(Json.toJson(seq)))
     }

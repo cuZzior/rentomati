@@ -10,6 +10,7 @@ class ReservationHistoryTable(tag: Tag) extends Table[Reservation](tag, Option("
   def userId: Rep[Long] = column[Long]("user_id")
   def itemId: Rep[Long] = column[Long]("item_id")
   def startDate: Rep[Instant] = column[Instant]("start_date")
+  def endDate: Rep[Instant] = column[Instant]("end_date")
 
-  override def * = (id, userId, itemId, startDate) <> ((Reservation.slickApply _).tupled, Reservation.slickUnapply)
+  override def * = (id, userId, itemId, startDate, endDate) <> ((Reservation.slickApply _).tupled, Reservation.slickUnapply)
 }

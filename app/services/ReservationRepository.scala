@@ -1,13 +1,13 @@
 package services
 
 import db.ReservationTable
-import javax.inject.{Inject, Singleton}
 import model.Reservation
 import play.api.db.slick.DatabaseConfigProvider
 import play.db.NamedDatabase
 import slick.jdbc.JdbcProfile
 import slick.lifted
 
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -31,24 +31,24 @@ class ReservationRepository @Inject() (
   }
 
   def delete(reservation: Reservation): Future[Reservation] =
-    db.run{
+    db.run {
       reservationTable
-        .filter(reservation => reservation.itemId === reservation.itemId)
+        .filter(_.itemId === reservation.itemId)
         .delete
         .map(_ => reservation)
     }
 
   def findByUserId(userId: Long): Future[Seq[Reservation]] =
-    db.run{
+    db.run {
       reservationTable
-        .filter(reservation => reservation.userId === userId)
+        .filter(_.userId === userId)
         .result
     }
 
   def findByItemId(itemId: Long): Future[Option[Reservation]] =
-    db.run{
+    db.run {
       reservationTable
-        .filter(reservation => reservation.itemId === itemId)
+        .filter(_.itemId === itemId)
         .result
         .headOption
     }

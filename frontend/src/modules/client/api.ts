@@ -1,6 +1,6 @@
 import * as superagent from 'superagent'
 
-import { Item, Reservation, Status } from './types';
+import { Item, Reservation } from './types';
 
 
 const agent = superagent.agent();
@@ -34,21 +34,14 @@ export function getItem (itemId: number): Promise<Item> {
     return request(`item/${itemId}`)
 }
 
-const reservations = [
-    {
-        "id": 2,
-        "name": "HTC Vive VR Googles - 2",
-        "status": Status.UNAVAILABLE,
-        "rentedBy": {
-            "id": 1,
-            "name": "bogzio",
-        },
-        "startDate": "2021-05-27T12:17:45.812085Z",
-        "endDate": "2021-05-27T12:17:45.812085Z",
-    }
-];
-
 export function getReservations (userId: number): Promise<Reservation[]> {
-    // return request(`reservations/userId/${userId}`);
-    return Promise.resolve(reservations);
+    return request(`reservations/userId/${userId}`);
+}
+
+export function reserve (userId: number, itemId: number) {
+    return request('reservations/reserve', {userId, itemId}, {method: 'POST'});
+}
+
+export function cancelReservation (itemId: number): Promise<Reservation[]> {
+    return request('reservations/cancel', {itemId}, {method: 'POST'});
 }

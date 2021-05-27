@@ -11,14 +11,15 @@ import styles from './styles.module.css';
 
 interface Props {
     item: Item;
+    showStatus?: boolean;
 }
 
-const ItemRow = ({item}: Props) => {
+const ItemRow = ({item, showStatus}: Props) => {
     return (
         <Link to={`/items/${item.id}`} className={styles.wrapper}>
             <ItemPicture itemId={item.id} />
             <div className={styles.content}>
-                <Description item={item} />
+                <Description item={item} showStatus={showStatus} />
             </div>
         </Link>
     );

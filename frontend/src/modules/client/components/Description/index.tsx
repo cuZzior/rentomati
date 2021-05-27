@@ -12,7 +12,7 @@ interface Props {
     showStatus?: boolean;
 }
 
-const Description = ({item, showStatus}: Props) => {
+const Description = ({item, showStatus = true}: Props) => {
     return (
         <div className={styles.wrapper}>
 
@@ -20,12 +20,14 @@ const Description = ({item, showStatus}: Props) => {
                 {item.name}
             </div>
 
-            <div className={styles.row}>
-                <div className={styles.label}>
-                    status:
+            {showStatus && (
+                <div className={styles.row}>
+                    <div className={styles.label}>
+                        status:
+                    </div>
+                    <StatusIndicator status={item.status} />
                 </div>
-                <StatusIndicator status={item.status} />
-            </div>
+            )}
 
             {item.rentedBy && (
                 <div className={styles.row}>

@@ -24,7 +24,11 @@ const Items = () => {
         <div className={styles.wrapper}>
             <h2>My items:</h2>
             {reservations.map(reservation => (
-                <ItemRow item={reservation} key={reservation.id} />
+                <ItemRow
+                    item={reservation}
+                    showStatus={false}
+                    key={reservation.id}
+                />
             ))}
         </div>
     );

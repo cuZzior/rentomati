@@ -10,7 +10,8 @@ import scala.concurrent.{ExecutionContext, Future}
 class InitialDataService @Inject() (
     itemRepository: ItemRepository,
     userRepository: UserRepository,
-    reservationRepository: ReservationRepository
+    reservationRepository: ReservationRepository,
+    reservationHistoryRepository: ReservationHistoryRepository
 )(implicit val executionContext: ExecutionContext) {
 
   private def createInitialItems: Seq[Item] = {
@@ -44,6 +45,15 @@ class InitialDataService @Inject() (
     )
   }
 
+  private def createInitialReservationHistory: Seq[Reservation] = {
+    Seq(
+      Reservation(6, 1, 8, Instant.now()),
+      Reservation(7, 1, 1, Instant.now()),
+      Reservation(8, 2, 5, Instant.now()),
+      Reservation(9, 2, 6, Instant.now())
+    )
+  }
+
   private def addToDatabase(): Future[Seq[Reservation]] = {
     Future.sequence {
       createInitialUsers
@@ -52,6 +62,8 @@ class InitialDataService @Inject() (
         .map(itemRepository.update)
       createInitialReservations
         .map(reservationRepository.update)
+      createInitialReservationHistory
+        .map(reservationHistoryRepository.save)
     }
   }
 

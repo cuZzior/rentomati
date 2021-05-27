@@ -5,6 +5,8 @@
 
 # An example controller showing a sample home page
 GET     /                                  controllers.Assets.at(path="/public", file="index.html")
+GET     /items                             controllers.Assets.at(path="/public", file="index.html")
+GET     /reservations                      controllers.Assets.at(path="/public", file="index.html")
 GET     /api/items                         ui.controllers.MainController.getAllItems
 GET     /api/item/:id                      ui.controllers.MainController.getItem(id: Long)
 GET     /api/reservations/userId/:userId   ui.controllers.MainController.getReservationsByUserId(userId: Long)

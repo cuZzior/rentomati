@@ -6,7 +6,7 @@ import slick.lifted.{Rep, Tag}
 import java.time.Instant
 
 class ReservationTable(tag: Tag) extends Table[Reservation](tag, Option("rentomati"), "reservation") {
-  def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
+  def id: Rep[Option[Long]] = column[Option[Long]]("id", O.PrimaryKey, O.AutoInc)
   def userId: Rep[Long] = column[Long]("user_id")
   def itemId: Rep[Long] = column[Long]("item_id")
   def startDate: Rep[Instant] = column[Instant]("start_date")
@@ -30,5 +30,5 @@ class ReservationTable(tag: Tag) extends Table[Reservation](tag, Option("rentoma
       onDelete = ForeignKeyAction.Cascade
     )
 
-  override def * = (id.?, userId, itemId, startDate, endDate) <> (Reservation.tupled, Reservation.unapply)
+  override def * = (id, userId, itemId, startDate, endDate) <> (Reservation.tupled, Reservation.unapply)
 }

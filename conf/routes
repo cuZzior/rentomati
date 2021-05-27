@@ -9,8 +9,7 @@ GET     /api/items                         ui.controllers.MainController.getAllI
 GET     /api/item/:id                      ui.controllers.MainController.getItem(id: Long)
 GET     /api/reservations/userId/:userId   ui.controllers.MainController.getReservationsByUserId(userId: Long)
 GET     /api/reservations/itemId/:itemId   ui.controllers.MainController.getReservationsByItemId(itemId: Long)
+GET     /api/reservations/:itemId/cancel   ui.controllers.MainController.cancelReservation(itemId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)
-
-      

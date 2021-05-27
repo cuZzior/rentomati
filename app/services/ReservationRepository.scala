@@ -12,9 +12,9 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class ReservationRepository @Inject() (
-  @NamedDatabase("default") databaseConfigProvider: DatabaseConfigProvider
+    @NamedDatabase("default") databaseConfigProvider: DatabaseConfigProvider
 )(implicit
-  val executionContext: ExecutionContext
+    val executionContext: ExecutionContext
 ) {
 
   protected val dbConfig = databaseConfigProvider.get[JdbcProfile]
@@ -30,17 +30,27 @@ class ReservationRepository @Inject() (
     }
   }
 
-  def findByUserId(userId: Long): Future[Seq[Reservation]] =
+  def delete(reservation: Reservation): Future[Reservation] =
+    db.run{
+      reservationTable
+        .filter(reservation => reservation.itemId === reservation.itemId)
+        .delete
+        .map(_ => reservation)
+    }
+
+  def findByUserId(userId: Long): Future[Option[Reservation]] =
     db.run{
       reservationTable
         .filter(reservation => reservation.userId === userId)
         .result
+        .headOption
     }
 
-  def findByItemId(itemId: Long): Future[Seq[Reservation]] =
+  def findByItemId(itemId: Long): Future[Option[Reservation]] =
     db.run{
       reservationTable
         .filter(reservation => reservation.itemId === itemId)
         .result
+        .headOption
     }
 }

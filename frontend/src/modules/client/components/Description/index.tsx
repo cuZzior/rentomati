@@ -4,7 +4,7 @@ import { Item, Reservation } from '../../types';
 import { CURRENT_USER_ID } from '../../consts';
 
 import StatusIndicator from '../StatusIndicator';
-import ReadableDate from '../ReadableDate';
+import TimeLeft from '../TimeLeft';
 
 import styles from './styles.module.css';
 
@@ -41,7 +41,7 @@ const Description = ({item, showStatus = true, currentReservation}: Props) => {
 
             {currentReservation && (
                 <div className={styles.row}>
-                    <ReadableDate dateString={currentReservation.startDate} /> &nbsp;-&nbsp; <ReadableDate dateString={currentReservation.endDate} />
+                    <TimeLeft dateString={currentReservation.endDate} />
                 </div>
             )}
 

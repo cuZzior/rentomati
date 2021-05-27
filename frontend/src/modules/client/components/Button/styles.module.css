@@ -1,0 +1,49 @@
+.wrapper {
+    border-radius: 5px;
+    padding: 8px 16px;
+    position: relative;
+    cursor: pointer;
+}
+
+.wrapper:not(.isPrimary) {
+    filter: grayscale(100%);
+}
+
+.wrapper:before,
+.wrapper:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    z-index: -1;
+    transition: 0.2s ease;
+    transition-property: top, left;
+}
+
+.wrapper:before {
+    top: -2px;
+    left: -2px;
+    background: var(--rm-gradient-green);
+}
+
+.wrapper:hover:before {
+    top: -4px;
+    left: -4px;
+}
+
+.wrapper:after {
+    top: 2px;
+    left: 2px;
+    background: var(--rm-gradient-blue);
+    mix-blend-mode: hard-light;
+}
+
+.wrapper:hover:after {
+    top: 4px;
+    left: 4px;
+}
+
+.wrapper + .wrapper {
+    margin-left: 16px
+}

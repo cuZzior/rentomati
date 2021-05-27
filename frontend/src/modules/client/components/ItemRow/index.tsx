@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Item } from '../../types';
 
@@ -14,12 +15,12 @@ interface Props {
 
 const ItemRow = ({item}: Props) => {
     return (
-        <div className={styles.wrapper}>
+        <Link to={`/items/${item.id}`} className={styles.wrapper}>
             <ItemPicture itemId={item.id} />
             <div className={styles.content}>
                 <Description item={item} />
             </div>
-        </div>
+        </Link>
     );
 }
 

@@ -1,3 +1,8 @@
+:root {
+    --rm-gradient-green: linear-gradient(0deg, rgba(129,214,129,0.49343487394957986) 0%, rgba(129,214,129,1) 100%);
+    --rm-gradient-blue: linear-gradient(0deg, rgba(129,186,214,0.4654236694677871) 0%, rgba(129,186,214,1) 100%);
+}
+
 html {
     height: 100%;
     font-family: sans-serif;

@@ -22,7 +22,7 @@ const Items = () => {
     return (
         <div className={styles.wrapper}>
             {items.map(item => (
-                <ItemRow item={item} />
+                <ItemRow item={item} key={item.id} />
             ))}
         </div>
     );

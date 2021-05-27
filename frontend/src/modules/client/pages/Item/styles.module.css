@@ -1,0 +1,16 @@
+.wrapper {
+    padding: 16px;
+}
+
+.data {
+    display: flex;
+}
+
+.picture {
+    margin-right: 16px;
+}
+
+.actions {
+    display: flex;
+    margin-top: 16px;
+}

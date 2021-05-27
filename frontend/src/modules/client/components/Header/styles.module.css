@@ -9,6 +9,27 @@
     justify-content: center;
     flex-direction: column;
     margin-right: 24px;
+    position: relative;
+}
+
+.logoBg,
+.logoBg2 {
+    width: 50px;
+    height: 70px;
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+}
+
+.logoBg {
+    background: var(--rm-gradient-green);
+    transform: rotate(60deg);
+}
+
+.logoBg2 {
+    background: var(--rm-gradient-blue);
+    transform: rotate(20deg);
+    mix-blend-mode: hard-light;
 }
 
 .menu {

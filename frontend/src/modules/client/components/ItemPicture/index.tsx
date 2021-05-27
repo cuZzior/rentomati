@@ -5,11 +5,12 @@ import styles from './styles.module.css';
 
 interface Props {
     itemId: number;
+    size?: number;
 }
 
-const ItemPicture = ({itemId}: Props) => {
+const ItemPicture = ({itemId, size = 100}: Props) => {
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} style={{width: size, height: size}}>
             <img src={`${process.env.PUBLIC_URL}/picture-${itemId}.jpg`} />
         </div>
     );

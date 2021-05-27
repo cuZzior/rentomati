@@ -38,12 +38,11 @@ class ReservationRepository @Inject() (
         .map(_ => reservation)
     }
 
-  def findByUserId(userId: Long): Future[Option[Reservation]] =
+  def findByUserId(userId: Long): Future[Seq[Reservation]] =
     db.run{
       reservationTable
         .filter(reservation => reservation.userId === userId)
         .result
-        .headOption
     }
 
   def findByItemId(itemId: Long): Future[Option[Reservation]] =

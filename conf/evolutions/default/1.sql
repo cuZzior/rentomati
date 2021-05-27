@@ -15,7 +15,7 @@ CREATE TABLE rentomati.user
 
 CREATE TABLE rentomati.reservation
 (
-    id         INT UNSIGNED PRIMARY KEY NOT NULL,
+    id         INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     user_id    INT UNSIGNED NOT NULL,
     item_id    INT UNSIGNED NOT NULL,
     start_date TEXT NOT NULL,

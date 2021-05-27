@@ -1,11 +1,14 @@
 package ui.controllers
 
-import play.api.libs.json.Json
+import model.Reservation
+import play.api.libs.json.{Json, Reads}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 import services.{ReservationHistoryRepository, ReservationRepository}
 import ui.ItemService
-import javax.inject.{Inject, Singleton}
+import ui.dto.ReserveDto
 
+import java.time.{Instant, Period}
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
 
 @Singleton
@@ -17,6 +20,8 @@ class MainController @Inject() (
 )(implicit
     val executionContext: ExecutionContext
 ) extends AbstractController(controllerComponents) {
+
+  implicit val testEventSpecReads: Reads[ItemRecord] = Json.reads[ItemRecord]
 
   def getAllItems: Action[AnyContent] = {
     Action.async { implicit request =>
@@ -42,7 +47,7 @@ class MainController @Inject() (
       import model.ReservationJson._
       reservationRepository
         .findByUserId(userId)
-        .map(activeReservationOption => Ok(Json.toJson(activeReservationOption)))
+        .map(seq => Ok(Json.toJson(seq)))
     }
   }
 
@@ -73,17 +78,36 @@ class MainController @Inject() (
     }
   }
 
-  def cancelReservation(itemId: Long): Action[AnyContent] = {
+  def cancelReservation(): Action[AnyContent] = {
     Action.async { implicit request =>
-      reservationRepository.findByItemId(itemId)
+      val itemRecord = request.body.asJson.get.as[ItemRecord]
+      reservationRepository.findByItemId(itemRecord.itemId)
         .map {
           case Some(reservation) =>
-            reservationHistoryRepository.save(reservation)
+            reservationHistoryRepository
+              .save(reservation)
               .map(archivedReservation => reservationRepository.delete(archivedReservation))
-            Ok(Json.toJson(s"Successfully canceled reservation for item: $itemId"))
+            Ok(Json.toJson(s"Successfully canceled reservation for item: ${itemRecord.itemId}"))
           case None =>
-            NotFound(Json.toJson(s"Cannot find active reservation for item: $itemId"))
+            NotFound(Json.toJson(s"Cannot find active reservation for item: ${itemRecord.itemId}"))
         }
     }
   }
+
+  def reserve: Action[AnyContent] = {
+    Action.async { implicit request =>
+      import ui.dto.ReserveDtoJson._
+      val reserveDto = request.body.asJson.get.as[ReserveDto]
+
+      val reservationStartDate = Instant.now()
+      val reservationEndDate = reservationStartDate.plus(Period.ofWeeks(2))
+      val reservation =
+        Reservation(None, reserveDto.userId, reserveDto.itemId, reservationStartDate, reservationEndDate)
+      reservationRepository
+        .update(reservation)
+        .map(_ => Ok)
+    }
+  }
 }
+
+case class ItemRecord(itemId: Long)

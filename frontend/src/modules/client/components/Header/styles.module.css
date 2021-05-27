@@ -10,6 +10,9 @@
     flex-direction: column;
     margin-right: 24px;
     position: relative;
+    height: 48px;
+    color: white;
+    text-decoration: none;
 }
 
 .logoBg,
@@ -23,13 +26,19 @@
 
 .logoBg {
     background: var(--rm-gradient-green);
-    transform: rotate(60deg);
+    transform: rotate(-60deg);
 }
 
 .logoBg2 {
     background: var(--rm-gradient-blue);
-    transform: rotate(20deg);
+    transform: rotate(40deg);
     mix-blend-mode: hard-light;
+}
+
+.text {
+    font-weight: bold;
+    transform: rotate(7deg);
+    font-size: 24px;
 }
 
 .menu {

@@ -2,12 +2,13 @@
     margin: 8px;
     background-color: rgba(255, 255, 255, 0.1);
     padding: 16px;
-    display: flex;
+    display: inline-flex;
     align-items: flex-start;
     color: inherit;
     text-decoration: none;
     transition: 0.4s ease background-color;
     border-radius: 7px;
+    width: calc(50% - 16px);
 }
 
 .wrapper:hover {

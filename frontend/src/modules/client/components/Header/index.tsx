@@ -1,6 +1,5 @@
 import React from 'react';
-
-import shop from './shop.svg';
+import { Link } from 'react-router-dom';
 
 import styles from './styles.module.css';
 
@@ -8,12 +7,13 @@ import styles from './styles.module.css';
 const Header = () => {
     return (
         <div className={styles.wrapper}>
-            <div className={styles.logo}>
+            <Link className={styles.logo} to="/">
                 <div className={styles.logoBg} />
                 <div className={styles.logoBg2} />
-                <img src={shop} width={30} />
-                Rent-o-mati!
-            </div>
+                <div className={styles.text}>
+                    Rent-o-mati!
+                </div>
+            </Link>
         </div>
     );
 }

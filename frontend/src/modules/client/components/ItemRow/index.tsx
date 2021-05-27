@@ -3,6 +3,7 @@ import React from 'react';
 import { Item } from '../../types';
 
 import ItemPicture from '../../components/ItemPicture';
+import Description from '../../components/Description';
 
 import styles from './styles.module.css';
 
@@ -16,13 +17,7 @@ const ItemRow = ({item}: Props) => {
         <div className={styles.wrapper}>
             <ItemPicture itemId={item.id} />
             <div className={styles.content}>
-                <ul>
-                    <li>name: {item.name}</li>
-                    <li>status: {item.status}</li>
-                    {item.rentedBy && (
-                        <li>rented by: {item.rentedBy.name}</li>
-                    )}
-                </ul>
+                <Description item={item} />
             </div>
         </div>
     );

@@ -11,7 +11,7 @@ interface Props {
 const ItemPicture = ({itemId, size = 100}: Props) => {
     return (
         <div className={styles.wrapper} style={{width: size, height: size}}>
-            <img src={`${process.env.PUBLIC_URL}/picture-${itemId}.jpg`} />
+            <img src={`${process.env.PUBLIC_URL}/item-${itemId}.jpg`} />
         </div>
     );
 }

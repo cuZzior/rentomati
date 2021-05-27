@@ -4,10 +4,10 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.Assets.at(path="/public", file="index.html")
-GET     /api/items          controllers.MainController.getAllItems
+GET     /                                  controllers.Assets.at(path="/public", file="index.html")
+GET     /api/items                         controllers.MainController.getAllItems
+GET     /api/reservations/userId/:userId   controllers.MainController.getReservationsByUserId(userId: Long)
+GET     /api/reservations/itemId/:itemId   controllers.MainController.getReservationsByItemId(itemId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)
-
-      

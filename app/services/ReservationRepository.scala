@@ -1,20 +1,20 @@
 package services
 
 import db.ReservationTable
-import javax.inject.{Inject, Singleton}
 import model.Reservation
 import play.api.db.slick.DatabaseConfigProvider
 import play.db.NamedDatabase
 import slick.jdbc.JdbcProfile
 import slick.lifted
 
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class ReservationRepository @Inject() (
-  @NamedDatabase("default") databaseConfigProvider: DatabaseConfigProvider
+    @NamedDatabase("default") databaseConfigProvider: DatabaseConfigProvider
 )(implicit
-  val executionContext: ExecutionContext
+    val executionContext: ExecutionContext
 ) {
 
   protected val dbConfig = databaseConfigProvider.get[JdbcProfile]
@@ -31,16 +31,17 @@ class ReservationRepository @Inject() (
   }
 
   def findByUserId(userId: Long): Future[Seq[Reservation]] =
-    db.run{
+    db.run {
       reservationTable
         .filter(reservation => reservation.userId === userId)
         .result
     }
 
-  def findByItemId(itemId: Long): Future[Seq[Reservation]] =
-    db.run{
+  def findByItemId(itemId: Long): Future[Option[Reservation]] =
+    db.run {
       reservationTable
         .filter(reservation => reservation.itemId === itemId)
         .result
+        .headOption
     }
 }

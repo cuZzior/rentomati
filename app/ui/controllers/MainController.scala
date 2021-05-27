@@ -1,33 +1,46 @@
-package controllers
+package ui.controllers
 
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
-import services.{ItemRepository, ReservationRepository}
-import javax.inject.{Inject, Singleton}
+import services.ReservationRepository
+import ui.ItemService
 
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
 
 @Singleton
 class MainController @Inject() (
-  controllerComponents: ControllerComponents,
-  itemRepository: ItemRepository,
-  reservationRepository: ReservationRepository
+    controllerComponents: ControllerComponents,
+    itemService: ItemService,
+    reservationRepository: ReservationRepository
 )(implicit
     val executionContext: ExecutionContext
 ) extends AbstractController(controllerComponents) {
 
   def getAllItems: Action[AnyContent] = {
     Action.async { implicit request =>
-      import model.ItemJson._
-      itemRepository.getAll
+      import ui.dto.ItemDtoJson._
+      itemService.getAll
         .map(seq => Ok(Json.toJson(seq)))
+    }
+  }
+  def getItem(id: Long): Action[AnyContent] = {
+    Action.async { implicit request =>
+      import ui.dto.ItemDtoJson._
+      itemService
+        .get(id)
+        .map {
+          case Some(itemDto) => Ok(Json.toJson(itemDto))
+          case None          => NotFound
+        }
     }
   }
 
   def getReservationsByUserId(userId: Long): Action[AnyContent] = {
     Action.async { implicit request =>
       import model.ReservationJson._
-      reservationRepository.findByUserId(userId)
+      reservationRepository
+        .findByUserId(userId)
         .map(seq => Ok(Json.toJson(seq)))
     }
   }
@@ -35,8 +48,10 @@ class MainController @Inject() (
   def getReservationsByItemId(itemId: Long): Action[AnyContent] = {
     Action.async { implicit request =>
       import model.ReservationJson._
-      reservationRepository.findByItemId(itemId)
+      reservationRepository
+        .findByItemId(itemId)
         .map(seq => Ok(Json.toJson(seq)))
     }
   }
+
 }

@@ -3,9 +3,8 @@
 create schema if not exists rentomati;
 CREATE TABLE rentomati.item
 (
-    id          INT UNSIGNED PRIMARY KEY NOT NULL,
-    name        VARCHAR(256) NOT NULL,
-    rent_status TEXT         NOT NULL
+    id   INT UNSIGNED PRIMARY KEY NOT NULL,
+    name VARCHAR(256) NOT NULL
 );
 
 CREATE TABLE rentomati.user

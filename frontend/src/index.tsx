@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import Demo from 'modules/client/pages/Demo';
 import Header from 'modules/client/components/Header';
+import Items from 'modules/client/pages/Items';
 
 import './normalize.css';
 import './global.css';
@@ -15,7 +15,10 @@ ReactDOM.render(
         <Header />
         <Switch>
             <Route exact path="/">
-                <Demo />
+                <Redirect to="/items" />
+            </Route>
+            <Route exact path="/items">
+                <Items />
             </Route>
         </Switch>
     </BrowserRouter>

@@ -1,0 +1,10 @@
+.wrapper {
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 100px;
+    height: 100px;
+}
+
+.wrapper img {
+    object-fit: cover;
+}

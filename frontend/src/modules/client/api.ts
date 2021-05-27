@@ -31,5 +31,5 @@ export function getItems (): Promise<Item[]> {
 }
 
 export function getItem (itemId: number): Promise<Item> {
-    return request(`items/${itemId}`)
+    return request(`item/${itemId}`)
 }

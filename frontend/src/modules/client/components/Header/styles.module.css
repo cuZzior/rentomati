@@ -1,0 +1,23 @@
+.wrapper {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 24px;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: 24px;
+}
+
+.menu {
+    display: inline-flex;
+    align-items: center;
+}
+
+.link {
+    margin-right: 16px;
+    text-decoration: none;
+    color: white;
+}

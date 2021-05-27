@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-import { Item } from '../../types';
+import { Item, Status } from '../../types';
 import { getItem } from '../../api';
+import { CURRENT_USER_ID } from '../../consts';
 
 import Button from '../../components/Button';
 import ItemPicture from '../../components/ItemPicture';
@@ -36,12 +37,23 @@ const Items = () => {
                 <Description item={item} />
             </div>
             <div className={styles.actions}>
-                <Button onClick={() => history.push('/items')}>
+
+                <Button onClick={() => history.goBack()}>
                     Cancel
                 </Button>
-                <Button isPrimary={true}>
-                    Book
-                </Button>
+
+                {item.status === Status.AVAILABLE && (
+                    <Button isPrimary={true}>
+                        Book
+                    </Button>
+                )}
+
+                {item.rentedBy?.id === CURRENT_USER_ID && (
+                    <Button isPrimary={true}>
+                        Mark as returned
+                    </Button>
+                )}
+
             </div>
         </div>
     );

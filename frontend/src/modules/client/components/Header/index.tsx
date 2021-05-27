@@ -22,9 +22,6 @@ const Header = () => {
                 <Link to="/reservations" className={styles.link}>
                     My reservations
                 </Link>
-                <Link to="/account" className={styles.link}>
-                    Account
-                </Link>
             </div>
         </div>
     );

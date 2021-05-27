@@ -17,4 +17,5 @@ export interface Item {
 
 export interface Reservation extends Item {
     startDate: string;
+    endDate: string;
 }

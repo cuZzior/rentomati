@@ -21,6 +21,7 @@ const Items = () => {
 
     return (
         <div className={styles.wrapper}>
+            <h2>All items:</h2>
             {items.map(item => (
                 <ItemRow item={item} key={item.id} />
             ))}

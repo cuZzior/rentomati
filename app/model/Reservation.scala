@@ -1,6 +1,7 @@
 package model
 
 import java.time.Instant
+import play.api.libs.json.{Json, OWrites}
 
 case class Reservation(id: Long, userId: Long, itemId: Long, startDate: Instant)
 
@@ -14,3 +15,6 @@ object Reservation {
   }
 }
 
+object ReservationJson {
+  implicit val reservationWrites: OWrites[Reservation] = Json.writes[Reservation]
+}
